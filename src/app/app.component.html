@@ -1,9 +1,14 @@
- <div class="wrapper">
+<app-ncats-header></app-ncats-header>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="start none">
+  <div fxFlex="45">
+<div class="wrapper">
   <iframe class="embed-responsive-item" frameborder="0" id="sketcher" [src]="url">
   </iframe>
  </div>
-<button matButton mat-button="primary" (click)="submit()">Search</button>
-
- <div>
+<button  mat-raised-button color="'accent'" (click)="submit()">Search</button>
+  </div>
+ <div fxFlex="45">
  {{data | json }}
  </div>
+</div>
+ <app-ncats-footer class ="footer"></app-ncats-footer>

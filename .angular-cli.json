@@ -19,7 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "ncats-theme.scss"
       ],
       "scripts": [
         "./assets/vendor/marvin/js/marvinjslauncher.js"
