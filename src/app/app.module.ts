@@ -10,6 +10,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {NcatsHeaderComponent} from './ncats-header/ncats-header.component';
 import {NcatsFooterComponent} from './ncats-footer/ncats-footer.component';
+import {LoadingService} from './services/loading.service';
 
 
 @NgModule({
@@ -27,7 +28,9 @@ import {NcatsFooterComponent} from './ncats-footer/ncats-footer.component';
     MaterialModule,
     FlexLayoutModule
   ],
-  providers: [],
+  providers: [
+    LoadingService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

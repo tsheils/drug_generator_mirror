@@ -69,21 +69,13 @@ $ncats-secondary: (
 );
 html, body {
   height: 100%;
-  margin: 0 !important;
+  margin: 0;
 }
 
 .main{
   display: flex !important;
   min-height: 100vh !important;
   flex-direction: column !important;
-}
-
-chart {
-  display: block;
-}
-
-.mat-drawer-content {
-overflow: visible !important;
 }
 
 $ncats-app-primary: mat-palette($ncats-primary);
