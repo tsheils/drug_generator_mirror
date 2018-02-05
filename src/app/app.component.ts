@@ -46,17 +46,25 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   submit() {
-    this.loadingService.toggleVisible('false');
+   // this.loadingService.toggleVisible('true');
     let ctrl = this;
     ctrl.marvinSketcherInstance.exportStructure("mol").then(function(source){
       console.log(source);
-      ctrl.http.post('https://predictor.ncats.io/route/predx/structurePredict', source).subscribe(res => {
-        console.log(res[0]);
-        ctrl.data = res[0];
-        this.loadingService.toggleVisible('true');
-      })
+     ctrl.getPredictions(source);
+    });
+  }
+
+  getPredictions(mol: string): void {
+    console.log(mol);
+    let ctrl = this;
+    this.http.post('https://predictor.ncats.io/route/predx/structurePredict', mol).subscribe(res => {
+      console.log(res[0]);
+      ctrl.data = res[0];
+      ctrl.loadingService.toggleVisible('false');
     })
   }
+
+
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
