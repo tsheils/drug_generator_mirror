@@ -1,0 +1,71 @@
+<div #datalist>
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around start" class="body-row">
+    <div fxFlex="90">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+  </mat-form-field>
+    </div>
+    <div fxFlex = "10">
+  <button mat-button [matMenuTriggerFor]="menu">
+    Download Table <mat-icon>file_download</mat-icon>
+  </button>
+    </div>
+  </div>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)=" downloadJSON()">
+      <mat-icon>code</mat-icon>
+      <span>JSON</span>
+    </button>
+    <button mat-menu-item (click)=" downloadCSV()" disabled>
+      <mat-icon>border_all</mat-icon>
+      <span>CSV</span>
+    </button>
+  </mat-menu>
+
+  <mat-table #table [dataSource]="dataSource" matSort>
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{row.name}}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="smiles">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <img class = "small-struc" [src] = row.imageUrl>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <div *ngIf="row.chembl;else plain_id">
+          <a href ="https://www.ebi.ac.uk/chembldb/index.php/target/inspect/{{row.id}}" target="_blank">{{row.id}}</a>
+        </div>
+        <ng-template #plain_id>{{row.id}}</ng-template>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="result">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Result</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{row.result}}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="group">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Group</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{row.group}}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="domain">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Domain</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        {{row.domain}}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" fxLayoutAlign="center start" ></mat-row>
+  </mat-table>
+</div>

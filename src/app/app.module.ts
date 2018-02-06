@@ -11,13 +11,22 @@ import {HttpClientModule} from '@angular/common/http';
 import {NcatsHeaderComponent} from './ncats-header/ncats-header.component';
 import {NcatsFooterComponent} from './ncats-footer/ncats-footer.component';
 import {LoadingService} from './services/loading.service';
+import {SketcherComponent} from './sketcher/sketcher.component';
+import {DataViewerComponent} from './data-viewer/data-viewer.component';
+import {MolService} from './services/mol.service';
+import { DataListComponent } from './data-list/data-list.component';
+import {DataListService} from './services/data-list.service';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NcatsHeaderComponent,
-    NcatsFooterComponent
+    NcatsFooterComponent,
+    SketcherComponent,
+    DataViewerComponent,
+    DataListComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +38,9 @@ import {LoadingService} from './services/loading.service';
     FlexLayoutModule
   ],
   providers: [
-    LoadingService
+    LoadingService,
+    MolService,
+    DataListService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,8 +1,6 @@
-import {AfterViewInit, Component, ElementRef, HostListener, Inject, OnInit, ViewChild} from '@angular/core';
-import {SafeResourceUrl, DomSanitizer} from "@angular/platform-browser";
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {DOCUMENT} from '@angular/common';
-import {LoadingService} from "./services/loading.service";
 
 
 @Component({
@@ -10,61 +8,17 @@ import {LoadingService} from "./services/loading.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit {
-/*
-  @ViewChild('sketcher') sketchTarget: ElementRef;
-*/
-  marvinSketcherInstance;
-  loading = false;
+export class AppComponent implements OnInit {
+
+  loading: boolean = false;
   navIsFixed: boolean;
   title = 'app';
   data: {};
 
-  url: SafeResourceUrl;
-  constructor(private sanitizer: DomSanitizer,
-              private loadingService: LoadingService,
-              private http: HttpClient,
-              @Inject(DOCUMENT) private document: Document) {
-    this.url = this.sanitizer.bypassSecurityTrustResourceUrl('./assets/vendor/marvin/editorws.html');
+  constructor(
+    @Inject(DOCUMENT) private document: Document) {
   }
-  ngOnInit(){
-    this.loadingService.loading$.subscribe(res =>this.loading = res);
-    let ctrl = this;
-    window['MarvinJSUtil'].getEditor('#sketcher').then(function (marvin) {
-      console.log(marvin);
-      ctrl.marvinSketcherInstance = marvin;
-      ctrl.marvinSketcherInstance.on("molchange", function(){
-
-      })
-    }, function (err) {
-      console.log(err);
-    });
-  }
-
-  ngAfterViewInit(): void {
-
-  }
-
-  submit() {
-   // this.loadingService.toggleVisible('true');
-    let ctrl = this;
-    ctrl.marvinSketcherInstance.exportStructure("mol").then(function(source){
-      console.log(source);
-     ctrl.getPredictions(source);
-    });
-  }
-
-  getPredictions(mol: string): void {
-    console.log(mol);
-    let ctrl = this;
-    this.http.post('https://predictor.ncats.io/route/predx/structurePredict', mol).subscribe(res => {
-      console.log(res[0]);
-      ctrl.data = res[0];
-      ctrl.loadingService.toggleVisible('false');
-    })
-  }
-
-
+  ngOnInit(){}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {

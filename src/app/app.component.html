@@ -1,21 +1,20 @@
 <div class="flex-body">
 <app-ncats-header></app-ncats-header>
-<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around center">
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around start" class="body-row">
   <div fxFlex="45">
-<div class="wrapper">
-  <iframe class="embed-responsive-item" frameborder="0" id="sketcher" [src]="url">
-  </iframe>
- </div>
-<button  mat-raised-button color="accent" (click)="submit()">Search</button>
+    <app-sketcher></app-sketcher>
   </div>
  <div fxFlex="45">
-   <div *ngIf="loading" class = "loadingIcon" fxLayoutAlign="center center">
-     <mat-spinner></mat-spinner>
-   </div>
- {{data | json }}
- </div>
+   <app-data-viewer></app-data-viewer>
 </div>
-<div class="scroll-to-top" [ngClass]="{'show-scroll': navIsFixed}">
+</div>
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around start" class="body-row">
+    <div fxFlex="95">
+      <app-data-list></app-data-list>
+    </div>
+
+
+  <div class="scroll-to-top" [ngClass]="{'show-scroll': navIsFixed}">
   <button  mat-fab color="primary" (click)="scrollToTop()">
     <mat-icon> arrow_upward </mat-icon>
   </button>

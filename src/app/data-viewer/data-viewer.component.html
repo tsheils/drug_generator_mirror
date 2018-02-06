@@ -1,0 +1,46 @@
+<div>
+<div *ngIf="loading" class = "loadingIcon" fxLayoutAlign="center center">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="data && !err;else error">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around center">
+      <div fxFlex="45">
+  <span class = "mat-headline"><i>{{data.name}}</i></span>
+      </div>
+      <div fxFlex="45">
+        <div *ngIf="chembl;else plain_id">
+          <a href ="https://www.ebi.ac.uk/chembldb/index.php/target/inspect/{{data.id}}" target="_blank">{{data.id}}</a>
+        </div>
+
+        <ng-template #plain_id>{{data.id}}</ng-template>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+      <div fxFlex="50">
+  <img [src] = data.imageUrl>
+      </div>
+      <div fxFlex = "50">
+        <mat-list role="list">
+          <mat-list-item role="listitem"><b>Result: </b> {{data.result}}</mat-list-item>
+          <mat-list-item role="listitem"><b>End Point: </b> {{data.endPoint}}</mat-list-item>
+          <mat-list-item role="listitem"><b>Domain: </b> {{data.domain}}</mat-list-item>
+          <mat-divider></mat-divider>
+          <h3 mat-subheader>Similarity</h3>
+          <mat-list-item role="listitem"><b>Neighborhood Structure: </b> <img class="small-struc"[src] = data.similarity.neighborImageUrl></mat-list-item>
+          <mat-list-item role="listitem"><b>Index: </b> {{data.similarity.index}}</mat-list-item>
+          <mat-list-item role="listitem"><b>Value: </b> {{data.similarity.value}}</mat-list-item>
+          <mat-list-item role="listitem"><b>Neighborhood Activity: </b> {{data.similarity.neighborhoodActivity}}</mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+    <div *ngIf = "data.description" fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="start center">
+      <div fxFlex="100">
+        {{data.description}}
+      </div>
+    </div>
+  <button mat-raised-button color="accent" (click)="addToList()">Add To List</button>
+  </div>
+<ng-template #error>{{err}}</ng-template>
+
+</div>
