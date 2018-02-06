@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Subject} from "rxjs/Subject";
-import {Data} from "../models/data";
+import {Subject} from 'rxjs/Subject';
+import {Data} from '../models/data';
 
 @Injectable()
 export class DataListService {
