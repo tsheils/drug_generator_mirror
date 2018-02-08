@@ -16,6 +16,8 @@ import {DataViewerComponent} from './data-viewer/data-viewer.component';
 import {MolService} from './services/mol.service';
 import { DataListComponent } from './data-list/data-list.component';
 import {DataListService} from './services/data-list.service';
+import {ModelParserService} from "./services/model-parser.service";
+import {PredictorService} from "./services/predictor.service";
 
 
 
@@ -40,7 +42,9 @@ import {DataListService} from './services/data-list.service';
   providers: [
     LoadingService,
     MolService,
-    DataListService
+    DataListService,
+    ModelParserService,
+    PredictorService
   ],
   bootstrap: [AppComponent]
 })

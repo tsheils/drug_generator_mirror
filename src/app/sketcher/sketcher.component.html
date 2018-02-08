@@ -2,4 +2,18 @@
   <iframe class="embed-responsive-item" frameborder="0" id="sketcher" [src]="url">
   </iframe>
 </div>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around start" class="body-row">
+  <div fxFlex="95">
+<mat-form-field class ="model-chooser">
+  <input matInput placeholder="Model Name" aria-label="Model Name" [matAutocomplete]="auto" [formControl]="modelCtrl">
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let model of filteredModels | async" [value]="model.name">
+      <span>{{ model.name }}</span>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+  </div>
+  <div fxFlex="5">
 <button mat-raised-button color="accent" (click)="submit()">Search</button>
+  </div>
+</div>

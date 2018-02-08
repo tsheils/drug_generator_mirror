@@ -1,4 +1,5 @@
-import {Similarity} from '../models/similarity';
+
+import {Similarity} from "./similarity";
 
 export class Data {
   name: string;

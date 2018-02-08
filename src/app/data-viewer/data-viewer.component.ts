@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {MolService} from '../services/mol.service';
 import {Data} from '../models/data';
 import {DataListService} from '../services/data-list.service';
+import {PredictorService} from "../services/predictor.service";
 
 @Component({
   selector: 'app-data-viewer',
@@ -19,18 +20,27 @@ loading: boolean = false;
   constructor(
     private http: HttpClient,
     private loadingService: LoadingService,
-    private molService: MolService,
+    private predictorService: PredictorService,
     private dataListService: DataListService
   ) { }
 
   ngOnInit() {
     this.loadingService.loading$.subscribe(res => this.loading = res);
-    this.molService.data$.subscribe(mol => this.getPredictions(mol));
+    this.predictorService.data$.subscribe(res => {
+      this.data = res;
+      this.loadingService.toggleVisible(false);
+    });
+    this.predictorService.error$.subscribe(res => {
+      console.log(res);
+      this.err = res;
+      this.loadingService.toggleVisible(false);
+    });
+   // this.molService.data$.subscribe(mol => this.getPredictions(mol));
   }
 
 
 
-  getPredictions(mol: string): void {
+ /* getPredictions(mol: string): void {
     this.err = null;
     this.http.post('https://predictor.ncats.io/route/predx/structurePredict', mol).subscribe(res => {
       this.data = new Data(res[0]);
@@ -40,7 +50,7 @@ loading: boolean = false;
       this.err = err.error;
         this.loadingService.toggleVisible(false);
       })
-  }
+  }*/
 
   addToList(){
     this.dataListService.addData(this.data);

@@ -5,6 +5,7 @@ export class Similarity {
   neighborhoodActivity;
 
   constructor (data) {
+    console.log(data);
     this.index = data.index;
     this.value = data.value;
     this.neighborhoodActivity = data.neighborhoodActivity;
@@ -13,6 +14,7 @@ export class Similarity {
   }
 
   private parseSmiles(smiles: string): string {
+    console.log(smiles);
     const parsed = smiles
       .replace(/[;]/g, '%3B')
       .replace(/[#]/g, '%23')

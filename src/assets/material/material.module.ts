@@ -3,13 +3,15 @@
  */
 import { NgModule } from '@angular/core';
 import {
-  MatButtonModule, MatAutocompleteModule, MatMenuModule, MatToolbarModule, MatInputModule, MatIconModule,
+  MatButtonModule, MatMenuModule, MatToolbarModule, MatInputModule, MatIconModule,
   MatListModule, MatSliderModule, MatProgressSpinnerModule, MatSortModule, MatSidenavModule,
   MatSlideToggleModule, MatRadioModule, MatCheckboxModule, MatTabsModule, MatCardModule, MatTooltipModule,
   MatSelectModule, MatExpansionModule
 } from '@angular/material';
 import {MatTableModule} from '@angular/material/table';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 
 
 
