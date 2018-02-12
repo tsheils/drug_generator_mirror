@@ -1,12 +1,12 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {LoadingService} from '../services/loading.service';
-import {MolService} from '../services/mol.service';
 import {ModelParserService} from '../services/model-parser.service';
-import {FormControl} from "@angular/forms";
-import {Observable} from "rxjs/Observable";
-import {map, startWith} from "rxjs/operators";
-import {PredictorService} from "../services/predictor.service";
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs/Observable';
+import {startWith} from 'rxjs/operators/startWith';
+import {map} from 'rxjs/operators/map';
+import {PredictorService} from '../services/predictor.service';
 import 'rxjs/add/observable/of';
 
 
@@ -19,42 +19,51 @@ export class SketcherComponent implements OnInit {
   marvinSketcherInstance;
   url: SafeResourceUrl;
   modelCtrl: FormControl = new FormControl();
-  filteredModels: Observable<any[]>;
+  filteredModels: Observable<any>;
   models: any[] = [];
+  drawn = false;
+  selected = false;
 
   constructor(
     private sanitizer: DomSanitizer,
     private ngZone: NgZone,
     private loadingService: LoadingService,
     private predictorService: PredictorService,
-    private molService: MolService,
-    private modelParserService: ModelParserService) {
+    private modelParserService: ModelParserService,
+    private ref: ChangeDetectorRef) {
     this.url = this.sanitizer.bypassSecurityTrustResourceUrl('./assets/vendor/marvin/editorws.html');
+
   }
 
   ngOnInit() {
     this.modelParserService.getData().subscribe(res => {
-      this.models = res;
-      this.filteredModels = Observable.of(res);
+      this.models = res.sort((a, b) => a.name.localeCompare(b.name));
+      this.modelCtrl.reset();
     });
     window['MarvinJSUtil'].getEditor('#sketcher').then((marvin) => {
       this.marvinSketcherInstance = marvin;
-      this.marvinSketcherInstance.on('molchange',() => {
+      this.marvinSketcherInstance.on('molchange', () => {
+        this.drawn = true;
+        this.ref.detectChanges();
+      });
+      }).catch(err => console.log(err));
 
-      })
-    }, function (err) {
-      console.log(err);
-    });
     this.filteredModels = this.modelCtrl.valueChanges
       .pipe(
         startWith(''),
-        map(model => model ? this.filterModels(model) : this.models.slice())
+        map(model =>  model ? this.filterModels(model) : this.models.slice())
       );
+
+
   }
 
   filterModels(name: string) {
     return this.models.filter(model =>
       model.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
+  }
+
+  setSelect(): void {
+    this.selected = true;
   }
 
   submit(): void {
@@ -64,7 +73,7 @@ export class SketcherComponent implements OnInit {
       // basically, the marvin callbacks aren't run within angular, so they can't update the scope data
       this.ngZone.run(() => {
         this.predictorService.getPredictions(mol, this.modelCtrl.value);
-       // this.molService.setMol(mol)
+       // this.drawn = false;
       });
     });
   }

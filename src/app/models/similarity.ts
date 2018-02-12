@@ -5,12 +5,11 @@ export class Similarity {
   neighborhoodActivity;
 
   constructor (data) {
-    console.log(data);
     this.index = data.index;
     this.value = data.value;
     this.neighborhoodActivity = data.neighborhoodActivity;
     this.neighborImageUrl = 'https://tripod.nih.gov/servlet/renderServletv12/?size=200&structure=' +
-      this.parseSmiles(data.neighborhoodStructure) + '&standardize=true&format=svg'
+      this.parseSmiles(data.neighborhoodStructure) + '&standardize=true&format=svg';
   }
 
   private parseSmiles(smiles: string): string {

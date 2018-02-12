@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Subject} from "rxjs/Subject";
-import {Observable} from "rxjs/Observable";
-import {catchError, map} from "rxjs/operators";
-import {of} from "rxjs/observable/of";
+import {HttpClient} from '@angular/common/http';
+import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
+import {catchError, map} from 'rxjs/operators';
+import {of} from 'rxjs/observable/of';
 
-const URL = "assets/Models_annotations_new.txt";
+const URL = 'assets/Models_annotations_new.txt';
 
 @Injectable()
 export class ModelParserService {
@@ -13,7 +13,7 @@ export class ModelParserService {
   private _dataSource = new Subject<any>();
   //  Observable navItem stream
   data$ = this._dataSource.asObservable();
-  //dataMap: Map<number, any[]> = new Map();
+  // dataMap: Map<number, any[]> = new Map();
 
   constructor(private http: HttpClient) {
   }
@@ -31,11 +31,10 @@ export class ModelParserService {
      const result: any[] = [];
 
      const headers = lines.shift().split('\t');
-     console.log(headers);
      for (const i of lines) {
-       //["Model_ID	Name	Prediction Type	End Point	Group	Titl…proach	Applicability domain	Reference	Source	Link"]
+       // ["Model_ID	Name	Prediction Type	End Point	Group	Titl…proach	Applicability domain	Reference	Source	Link"]
         const currentline = i.split('\t');
-        result.push({id:currentline[0], name:currentline[1].replace(/"/g,'') })
+        result.push({id: currentline[0], name: currentline[1].replace(/"/g, '') });
 }
 return result.sort();
   }

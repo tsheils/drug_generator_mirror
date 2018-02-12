@@ -6,7 +6,7 @@
   <div fxFlex="95">
 <mat-form-field class ="model-chooser">
   <input matInput placeholder="Model Name" aria-label="Model Name" [matAutocomplete]="auto" [formControl]="modelCtrl">
-  <mat-autocomplete #auto="matAutocomplete">
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected) = "setSelect()">
     <mat-option *ngFor="let model of filteredModels | async" [value]="model.name">
       <span>{{ model.name }}</span>
     </mat-option>
@@ -14,6 +14,6 @@
 </mat-form-field>
   </div>
   <div fxFlex="5">
-<button mat-raised-button color="accent" (click)="submit()">Search</button>
+<button mat-raised-button color="accent" (click)="submit()" [disabled] ="!selected || !drawn">Search</button>
   </div>
 </div>

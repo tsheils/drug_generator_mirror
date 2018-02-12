@@ -1,6 +1,7 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 import {DOCUMENT} from '@angular/common';
+import {LoadingService} from './services/loading.service';
 
 
 @Component({
@@ -10,15 +11,19 @@ import {DOCUMENT} from '@angular/common';
 })
 export class AppComponent implements OnInit {
 
-  loading: boolean = false;
+  loading = false;
   navIsFixed: boolean;
   title = 'app';
   data: {};
 
   constructor(
+    private loadingService: LoadingService,
     @Inject(DOCUMENT) private document: Document) {
   }
-  ngOnInit(){}
+
+  ngOnInit() {
+    this.loadingService.loading$.subscribe(res => this.loading = res);
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {

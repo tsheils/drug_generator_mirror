@@ -1,7 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-
 import { AppComponent } from './app.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MaterialModule} from '../assets/material/material.module';
@@ -13,11 +11,10 @@ import {NcatsFooterComponent} from './ncats-footer/ncats-footer.component';
 import {LoadingService} from './services/loading.service';
 import {SketcherComponent} from './sketcher/sketcher.component';
 import {DataViewerComponent} from './data-viewer/data-viewer.component';
-import {MolService} from './services/mol.service';
 import { DataListComponent } from './data-list/data-list.component';
 import {DataListService} from './services/data-list.service';
-import {ModelParserService} from "./services/model-parser.service";
-import {PredictorService} from "./services/predictor.service";
+import {ModelParserService} from './services/model-parser.service';
+import {PredictorService} from './services/predictor.service';
 
 
 
@@ -41,7 +38,6 @@ import {PredictorService} from "./services/predictor.service";
   ],
   providers: [
     LoadingService,
-    MolService,
     DataListService,
     ModelParserService,
     PredictorService

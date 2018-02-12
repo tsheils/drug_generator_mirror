@@ -1,7 +1,5 @@
 <div>
-<div *ngIf="loading" class = "loadingIcon" fxLayoutAlign="center center">
-  <mat-spinner></mat-spinner>
-</div>
+
 
 <div *ngIf="data && !err;else error">
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="space-around center">
@@ -9,7 +7,7 @@
   <span class = "mat-headline"><i>{{data.name}}</i></span>
       </div>
       <div fxFlex="45">
-        <div *ngIf="chembl;else plain_id">
+        <div *ngIf="data.chembl;else plain_id">
           <a href ="https://www.ebi.ac.uk/chembldb/index.php/target/inspect/{{data.id}}" target="_blank">{{data.id}}</a>
         </div>
 
@@ -39,8 +37,8 @@
         {{data.description}}
       </div>
     </div>
-  <button mat-raised-button color="accent" (click)="addToList()">Add To List</button>
+  <button mat-raised-button color="accent" (click)="addToList()" [disabled] = "pushed">Add To List</button>
   </div>
-<ng-template #error>{{err}}</ng-template>
+<ng-template #error>{{err?.message || err}}</ng-template>
 
 </div>

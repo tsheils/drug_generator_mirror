@@ -6,7 +6,7 @@
   </mat-form-field>
     </div>
     <div fxFlex = "10">
-  <button mat-button [matMenuTriggerFor]="menu">
+  <button mat-button [matMenuTriggerFor]="menu" [disabled]="dataSource.data.length == 0">
     Download Table <mat-icon>file_download</mat-icon>
   </button>
     </div>
@@ -16,10 +16,10 @@
       <mat-icon>code</mat-icon>
       <span>JSON</span>
     </button>
-    <button mat-menu-item (click)=" downloadCSV()" disabled>
+    <!--<button mat-menu-item (click)=" downloadCSV()">
       <mat-icon>border_all</mat-icon>
       <span>CSV</span>
-    </button>
+    </button>-->
   </mat-menu>
 
   <mat-table #table [dataSource]="dataSource" matSort>

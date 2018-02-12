@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {Data} from "../models/data";
-import {Subject} from "rxjs/Subject";
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs/Observable";
-import {LoadingService} from "./loading.service";
+import {Data} from '../models/data';
+import {Subject} from 'rxjs/Subject';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import {LoadingService} from './loading.service';
 
 @Injectable()
 export class PredictorService {
@@ -15,17 +15,18 @@ export class PredictorService {
   constructor(private http: HttpClient) { }
 
   getPredictions(mol: string, name: string): void {
-    console.log(name);
     this.http.post<any>('https://predictor.ncats.io/route/predx/structurePredict', mol).subscribe(res => {
-      console.log(res);
       const r = res.filter(source => source.name === name );
-      console.log(r);
+      if (r.length === 0) {
+        this._errorSource.next('No models found');
+      } else {
         const data = new Data(r[0]);
         this._dataSource.next(data);
+      }
       },
-      err =>{
+      err => {
       console.log(err);
         this._errorSource.next(err);
-      })
+      });
   }
 }
