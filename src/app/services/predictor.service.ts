@@ -21,6 +21,8 @@ export class PredictorService {
         this._errorSource.next('No models found');
       } else {
         const data = new Data(r[0]);
+       // const r =
+        console.log(data.toCSV());
         this._dataSource.next(data);
       }
       },

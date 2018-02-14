@@ -7,7 +7,7 @@
   <span class = "mat-headline"><i>{{data.name}}</i></span>
       </div>
       <div fxFlex="45">
-        <div *ngIf="data.chembl;else plain_id">
+        <div *ngIf="data.isChembl();else plain_id">
           <a href ="https://www.ebi.ac.uk/chembldb/index.php/target/inspect/{{data.id}}" target="_blank">{{data.id}}</a>
         </div>
 
@@ -16,7 +16,7 @@
     </div>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign="center center">
       <div fxFlex="50">
-  <img [src] = data.imageUrl>
+  <img [src] = data.getImageUrl()>
       </div>
       <div fxFlex = "50">
         <mat-list role="list">
@@ -25,7 +25,7 @@
           <mat-list-item role="listitem"><b>Domain: </b> {{data.domain}}</mat-list-item>
           <mat-divider></mat-divider>
           <h3 mat-subheader>Similarity</h3>
-          <mat-list-item role="listitem"><b>Neighborhood Structure: </b> <img class="small-struc"[src] = data.similarity.neighborImageUrl></mat-list-item>
+          <mat-list-item role="listitem"><b>Neighborhood Structure: </b> <img class="small-struc"[src] = data.similarity.getNeighborImageUrl()></mat-list-item>
           <mat-list-item role="listitem"><b>Index: </b> {{data.similarity.index}}</mat-list-item>
           <mat-list-item role="listitem"><b>Value: </b> {{data.similarity.value}}</mat-list-item>
           <mat-list-item role="listitem"><b>Neighborhood Activity: </b> {{data.similarity.neighborhoodActivity}}</mat-list-item>

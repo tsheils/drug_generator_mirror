@@ -16,10 +16,10 @@
       <mat-icon>code</mat-icon>
       <span>JSON</span>
     </button>
-    <!--<button mat-menu-item (click)=" downloadCSV()">
+    <button mat-menu-item (click)=" downloadCSV()">
       <mat-icon>border_all</mat-icon>
       <span>CSV</span>
-    </button>-->
+    </button>
   </mat-menu>
 
   <mat-table #table [dataSource]="dataSource" matSort>
@@ -34,13 +34,13 @@
     <ng-container matColumnDef="smiles">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <img class = "small-struc" [src] = row.imageUrl>
+        <img class = "small-struc" [src] = row.getImageUrl()>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <div *ngIf="row.chembl;else plain_id">
+        <div *ngIf="row.isChembl();else plain_id">
           <a href ="https://www.ebi.ac.uk/chembldb/index.php/target/inspect/{{row.id}}" target="_blank">{{row.id}}</a>
         </div>
         <ng-template #plain_id>{{row.id}}</ng-template>
@@ -69,3 +69,4 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;" fxLayoutAlign="center start" ></mat-row>
   </mat-table>
 </div>
+

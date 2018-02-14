@@ -22,6 +22,7 @@ export class SketcherComponent implements OnInit {
   filteredModels: Observable<any>;
   models: any[] = [];
   drawn = false;
+  molecule = false;
   selected = false;
 
   constructor(
@@ -43,7 +44,12 @@ export class SketcherComponent implements OnInit {
     window['MarvinJSUtil'].getEditor('#sketcher').then((marvin) => {
       this.marvinSketcherInstance = marvin;
       this.marvinSketcherInstance.on('molchange', () => {
+        this.molecule = true;
         this.drawn = true;
+        if (this.marvinSketcherInstance.isEmpty()) {
+          this.molecule = false;
+          this.drawn = false;
+        }
         this.ref.detectChanges();
       });
       }).catch(err => console.log(err));
@@ -64,6 +70,9 @@ export class SketcherComponent implements OnInit {
 
   setSelect(): void {
     this.selected = true;
+    if (this.molecule) {
+      this.drawn = true;
+    }
   }
 
   submit(): void {
@@ -73,7 +82,7 @@ export class SketcherComponent implements OnInit {
       // basically, the marvin callbacks aren't run within angular, so they can't update the scope data
       this.ngZone.run(() => {
         this.predictorService.getPredictions(mol, this.modelCtrl.value);
-       // this.drawn = false;
+        this.drawn = false;
       });
     });
   }

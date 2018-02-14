@@ -57,6 +57,10 @@ export class DataListComponent implements OnInit, AfterViewInit {
   }
 
   downloadCSV(): void {
+    const s = this.dataSource.data[0].similarity;
+    const simKeys = [Object.keys(s).map(key => 'similarity.'+key)].join(',');
+    console.log(...[Object.keys(this.dataSource.data[0])]).join.replace('similarity', simKeys);
+
   /*  const map=new Map();
     let ind=0;
     function exp(props){
