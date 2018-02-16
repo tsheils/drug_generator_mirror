@@ -79,7 +79,7 @@
 				if (marvin) {
 					marvin.onReady(function() {
 						if (typeof marvin.sketcherInstance != 'undefined') {
-							resolve(marvin.sketcherInstance);
+              resolve(marvin.sketcherInstance);
 						} else {
 							reject("Unable to find sketcherInstance in iframe with id: " + elementId);
 						}

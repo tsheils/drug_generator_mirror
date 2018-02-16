@@ -14,6 +14,7 @@ export class DataListComponent implements OnInit, AfterViewInit {
   data: Data[] = [];
   file: any;
   snackBarRef: any;
+  link: any;
   displayedColumns = ['name', 'smiles', 'id', 'result', 'group', 'domain'];
   dataSource = new MatTableDataSource<Data>([]);
   @ViewChild(MatSort) sort: MatSort;
@@ -30,6 +31,7 @@ export class DataListComponent implements OnInit, AfterViewInit {
       this.openSnackBar(res.name + ' added!', 'See List');
       this.dataSource.data = this.data;
     });
+    this.link = document.createElement('a');
   }
 
   ngAfterViewInit() {
@@ -53,77 +55,29 @@ export class DataListComponent implements OnInit, AfterViewInit {
 
   downloadJSON(): void {
     this.file = new Blob([JSON.stringify(this.dataSource.data)], { type: 'text/json'});
+    this.link.download = 'drugGenerator.txt';
     this.downloadFile();
   }
 
   downloadCSV(): void {
+    console.log(this.dataSource.data);
     const s = this.dataSource.data[0].similarity;
-    const simKeys = [Object.keys(s).map(key => 'similarity.'+key)].join(',');
-    console.log(...[Object.keys(this.dataSource.data[0])]).join.replace('similarity', simKeys);
-
-  /*  const map=new Map();
-    let ind=0;
-    function exp(props){
-
-      var tot=[];
-
-      _.forIn(props, function(value,key){
-        if(!map.has(key)){
-          map.set(key, ind++);
-        }
-        var vi = map.get(key);
-        tot[vi]={key:key, value:value};
-      });
-
-      var line="";
-      _.forEach(tot,function (col, i){
-        if(col){
-          line+="\t" + col.value;
-        }else{
-          line+="\t";
-        }
-      });
-      printLine(line);
-    }
-    var lines = [];
-
-    function printLine(line){
-      lines.push(line);
-    }
-
-    function printHeader(){
-      var tot=[];
-      var hline="";
-      map.forEach(function (v,k){
-        tot[v]=k;
-      });
-      _.forEach(tot,function (hName, i){
-        hline+="\t" + hName;
-      });
-      console.log(lines);
-//printLine(line);
-      var lineOut= hline + "\n" + lines.join("\n");
-      //$("#export").val(lineOut);
-      var b = new Blob([lineOut], {type: "text/plain"});
-      var url=URL.createObjectURL(b);
-      $("#download").attr("href", url);
-
-
-      this.file = new Blob([str], { type: 'text/csv' });
-    this.downloadFile();*/
+    const simKeys = [...Object.keys(s).map(key => 'similarity.'+key)].join('\t');
+    const dataKeys = [...Object.keys(this.dataSource.data[0])].join('\t').replace('similarity', simKeys);
+    console.log(simKeys);
+    console.log(dataKeys);
+    let lines = [];
+    this.dataSource.data.forEach(data => lines.push(data.toCSV()));
+    let csv = dataKeys + '\n' + lines.join('\n');
+    this.file = new Blob([csv], { type: 'text/csv'});
+    this.link.download = 'drugGenerator.tsv';
+    this.downloadFile();
   }
 
   downloadFile(): void {
-    const reader = new FileReader();
-    reader.addEventListener('loadend', function() {
-      // reader.result contains the contents of blob as a typed array
-    });
-    console.log(this.file);
    // let url = window.URL.createObjectURL(this.file);
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(this.file);
-    link.download = 'drugGenerator.txt';
-    link.click();
+    this.link.href = window.URL.createObjectURL(this.file);
+    this.link.click();
     // window.open(url);
   }
 }

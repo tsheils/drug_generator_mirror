@@ -11,8 +11,8 @@ export class Data {
   result: string;
   similarity: Similarity;
   smile: string;
-  value: string;
   type: string;
+  value: string;
 
   constructor (data) {
     this.description = data.description;
@@ -23,9 +23,9 @@ export class Data {
     this.name = data.name;
     this.result = data.result;
     this.similarity = new Similarity(data.similarity);
-    this.smile = data.smile;
-    this.value = data.value;
+    this.smile = data.smile.replace('\n','');
     this.type = data.type;
+    this.value = data.value;
   }
 
   private parseSmiles(smiles: string): string {
@@ -39,8 +39,8 @@ export class Data {
   }
 
    toCSV(): string {
-     const similarity = [...(Object.values(this.similarity))].join(',');
-     const data = [...(Object.values(this))].join(',');
+     const similarity = [...(Object.values(this.similarity))].join('\t');
+     const data = [...(Object.values(this))].join('\t');
     return data.replace('[object Object]', similarity);
   }
 

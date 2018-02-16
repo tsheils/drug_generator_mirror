@@ -16,8 +16,6 @@ import {DataListService} from './services/data-list.service';
 import {ModelParserService} from './services/model-parser.service';
 import {PredictorService} from './services/predictor.service';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,

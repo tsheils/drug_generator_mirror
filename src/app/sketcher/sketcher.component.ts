@@ -32,7 +32,7 @@ export class SketcherComponent implements OnInit {
     private predictorService: PredictorService,
     private modelParserService: ModelParserService,
     private ref: ChangeDetectorRef) {
-    this.url = this.sanitizer.bypassSecurityTrustResourceUrl('./assets/vendor/marvin/editorws.html');
+    this.url = this.sanitizer.bypassSecurityTrustResourceUrl('./assets/vendor/marvin/editor.html');
 
   }
 
@@ -41,8 +41,8 @@ export class SketcherComponent implements OnInit {
       this.models = res.sort((a, b) => a.name.localeCompare(b.name));
       this.modelCtrl.reset();
     });
-    window['MarvinJSUtil'].getEditor('#sketcher').then((marvin) => {
-      this.marvinSketcherInstance = marvin;
+    window['MarvinJSUtil'].getPackage('#sketcher').then((marvin) => {
+      this.marvinSketcherInstance = marvin.sketcherInstance;
       this.marvinSketcherInstance.on('molchange', () => {
         this.molecule = true;
         this.drawn = true;
@@ -59,8 +59,6 @@ export class SketcherComponent implements OnInit {
         startWith(''),
         map(model =>  model ? this.filterModels(model) : this.models.slice())
       );
-
-
   }
 
   filterModels(name: string) {

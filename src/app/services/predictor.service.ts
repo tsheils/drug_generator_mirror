@@ -5,6 +5,9 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {LoadingService} from './loading.service';
 
+//const URL = 'https://128.231.11.79:9000/predictor/route/microservice/predict/ncats/mol';
+const URL = 'https://predictor.ncats.io/route/microservice/predict/ncats/mol';
+
 @Injectable()
 export class PredictorService {
   private _dataSource = new Subject<any>();
@@ -15,14 +18,14 @@ export class PredictorService {
   constructor(private http: HttpClient) { }
 
   getPredictions(mol: string, name: string): void {
-    this.http.post<any>('https://predictor.ncats.io/route/predx/structurePredict', mol).subscribe(res => {
+
+
+    this.http.post<any>(URL, mol).subscribe(res => {
       const r = res.filter(source => source.name === name );
       if (r.length === 0) {
         this._errorSource.next('No models found');
       } else {
         const data = new Data(r[0]);
-       // const r =
-        console.log(data.toCSV());
         this._dataSource.next(data);
       }
       },
