@@ -24,7 +24,7 @@ export class Data {
     this.name = data.name;
     this.result = data.result;
     this.similarity = new Similarity(data.similarity);
-    this.smiles = data.smiles.replace('\n','');
+    this.smiles = data.smiles.replace('\n', '');
     this.type = data.type;
     this.value = data.value;
   }

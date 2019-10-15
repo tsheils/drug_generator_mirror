@@ -17,8 +17,8 @@ export class DataListComponent implements OnInit, AfterViewInit {
   link: any;
   displayedColumns = ['name', 'smiles', 'id', 'result', 'group', 'domain'];
   dataSource = new MatTableDataSource<Data>([]);
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('datalist') datalist: ElementRef;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('datalist', { static: true }) datalist: ElementRef;
 
   constructor(
     public snackBar: MatSnackBar,
@@ -62,7 +62,7 @@ export class DataListComponent implements OnInit, AfterViewInit {
   downloadCSV(): void {
     console.log(this.dataSource.data);
     const s = this.dataSource.data[0].similarity;
-    const simKeys = [...Object.keys(s).map(key => 'similarity.'+ key)].join('\t');
+    const simKeys = [...Object.keys(s).map(key => 'similarity.' + key)].join('\t');
     const dataKeys = [...Object.keys(this.dataSource.data[0])].join('\t').replace('similarity', simKeys);
     console.log(simKeys);
     console.log(dataKeys);

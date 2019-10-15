@@ -31,8 +31,7 @@ import {PredictorService} from './services/predictor.service';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule,
-    FlexLayoutModule
+    MaterialModule
   ],
   providers: [
     LoadingService,

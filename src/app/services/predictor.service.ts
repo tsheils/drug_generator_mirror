@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import {Data} from '../models/data';
 import {HttpClient} from '@angular/common/http';
 import {Subject} from 'rxjs/index';
+import {environment} from '../../environments/environment.prod';
 
-// const URL = 'https://128.231.11.79:9000/predictor/route/microservice/predict/ncats/mol';
-const URL = 'https://predictor.ncats.io/route/microservice/predict/ncats/mol';
+const URL = environment.predictorUrl;
 
 @Injectable()
 export class PredictorService {
@@ -13,7 +13,9 @@ export class PredictorService {
   //  Observable navItem stream
   data$ = this._dataSource.asObservable();
   error$ = this._errorSource.asObservable();
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getPredictions(mol: string, name: string): void {
 
