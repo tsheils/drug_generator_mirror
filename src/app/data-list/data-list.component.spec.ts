@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DataListComponent } from './data-list.component';
+import {MaterialModule} from '../../assets/material/material.module';
+import {DataListService} from '../services/data-list.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('DataListComponent', () => {
   let component: DataListComponent;
@@ -8,7 +11,14 @@ describe('DataListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DataListComponent ]
+      declarations: [ DataListComponent ],
+      imports: [
+        MaterialModule,
+        BrowserAnimationsModule
+      ],
+      providers: [
+        DataListService
+      ]
     })
     .compileComponents();
   }));

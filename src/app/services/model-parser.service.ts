@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of, Subject} from 'rxjs/index';
 import {catchError, map} from 'rxjs/operators';
+import {environment} from '../../environments/environment.prod';
 
-const URL = 'assets/Models_annotations_new.txt';
+const URL = environment.annotationsFile;
 
 @Injectable()
 export class ModelParserService {
