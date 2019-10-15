@@ -3,11 +3,10 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {LoadingService} from '../services/loading.service';
 import {ModelParserService} from '../services/model-parser.service';
 import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
-import {startWith} from 'rxjs/operators/startWith';
-import {map} from 'rxjs/operators/map';
+import {startWith, map} from 'rxjs/operators';
 import {PredictorService} from '../services/predictor.service';
-import 'rxjs/add/observable/of';
+import {Observable} from 'rxjs/index';
+
 
 
 @Component({

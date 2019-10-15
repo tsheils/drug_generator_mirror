@@ -22,13 +22,12 @@ a:hover{
 }
 
 #ncats-logo{
-  min-height: 8vh;
+  min-height: 80px;
   background-color: #fff;
-  width:100%
 }
 
 #ncats-logo img{
-  height: 7vh;
+  height: 5vh;
   padding: 10px;
 }
 
@@ -38,7 +37,7 @@ a:hover{
 }
 
 span.logo-header {
-  color: #ababab;
+  color: #64676b;
 }
 
 span.logo-header.subsection {

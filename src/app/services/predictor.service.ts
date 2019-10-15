@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Data} from '../models/data';
-import {Subject} from 'rxjs/Subject';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import {LoadingService} from './loading.service';
+import {Subject} from 'rxjs/index';
 
-//const URL = 'https://128.231.11.79:9000/predictor/route/microservice/predict/ncats/mol';
+// const URL = 'https://128.231.11.79:9000/predictor/route/microservice/predict/ncats/mol';
 const URL = 'https://predictor.ncats.io/route/microservice/predict/ncats/mol';
 
 @Injectable()

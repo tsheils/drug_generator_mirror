@@ -10,11 +10,12 @@ export class Data {
   name: string;
   result: string;
   similarity: Similarity;
-  smile: string;
+  smiles: string;
   type: string;
   value: string;
 
   constructor (data) {
+    console.log(data);
     this.description = data.description;
     this.domain = data.domain;
     this.endPoint = data.endPoint;
@@ -23,19 +24,23 @@ export class Data {
     this.name = data.name;
     this.result = data.result;
     this.similarity = new Similarity(data.similarity);
-    this.smile = data.smile.replace('\n','');
+    this.smiles = data.smiles.replace('\n','');
     this.type = data.type;
     this.value = data.value;
   }
 
   private parseSmiles(smiles: string): string {
-    const parsed = smiles
-      .replace(/[;]/g, '%3B')
-      .replace(/[#]/g, '%23')
-      .replace(/[+]/g, '%2B')
-      .replace(/[\\]/g, '%5C')
-      .replace(/[|]/g, '%7C');
-    return parsed;
+      //  console.log(smiles);
+      const parsed = smiles
+        .replace(/[;]/g, '%3B')
+        .replace(/[#]/g, '%23')
+        .replace(/[@]/g, '%40')
+        .replace(/[+]/g, '%2B')
+        .replace(/[\\]/g, '%5C')
+        .replace(/[\[]/g, '%5B')
+        .replace(/[\]]/g, '%5D')
+        .replace(/[|]/g, '%7C');
+      return parsed;
   }
 
    toCSV(): string {
@@ -50,6 +55,6 @@ export class Data {
 
   getImageUrl(): string {
     return 'https://tripod.nih.gov/servlet/renderServletv12/?size=200&structure=' +
-      this.parseSmiles(this.smile) + '&standardize=true&format=svg';
+      this.parseSmiles(this.smiles) + '&standardize=true&format=svg';
   }
 }

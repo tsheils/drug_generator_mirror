@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
+import {Observable, of, Subject} from 'rxjs/index';
 import {catchError, map} from 'rxjs/operators';
-import {of} from 'rxjs/observable/of';
 
 const URL = 'assets/Models_annotations_new.txt';
 

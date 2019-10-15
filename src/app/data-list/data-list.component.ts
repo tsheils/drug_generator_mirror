@@ -62,13 +62,13 @@ export class DataListComponent implements OnInit, AfterViewInit {
   downloadCSV(): void {
     console.log(this.dataSource.data);
     const s = this.dataSource.data[0].similarity;
-    const simKeys = [...Object.keys(s).map(key => 'similarity.'+key)].join('\t');
+    const simKeys = [...Object.keys(s).map(key => 'similarity.'+ key)].join('\t');
     const dataKeys = [...Object.keys(this.dataSource.data[0])].join('\t').replace('similarity', simKeys);
     console.log(simKeys);
     console.log(dataKeys);
-    let lines = [];
+    const lines = [];
     this.dataSource.data.forEach(data => lines.push(data.toCSV()));
-    let csv = dataKeys + '\n' + lines.join('\n');
+    const csv = dataKeys + '\n' + lines.join('\n');
     this.file = new Blob([csv], { type: 'text/csv'});
     this.link.download = 'drugGenerator.tsv';
     this.downloadFile();
